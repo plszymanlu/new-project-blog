@@ -47,15 +47,30 @@ for(let activeLink of activeLinks){
 /* [IN PROGRESS] add class 'active' to the clicked link */
 
     console.log('clickedElement:', clickedElement);
-activeLink.classList.add('active');
+    activeLink.classList.add('active');
 
 /* [DONE] remove class 'active' from all articles */
 
   /* get 'href' attribute from the clicked link */
 
+    const articleSelector = href;
+    console.log('articleSelector:', articleSelector);
+
+    clickedElement = element.getAttribute('href:');
+
   /* find the correct article using the selector (value of 'href' attribute) */
 
+  const querySelector = href;
+  const links = document.querySelector('.titles a');
+
+  function titleClickHandler(){
+    const links = document.querySelector('.titles a');
+    console.log(links);
+
   /* add class 'active' to the correct article */
+
+  console.log('targetArticle:', targetArticle);
+    activeLink.classList.add('active');
 
 /* remove class 'active' from all articles */
 
