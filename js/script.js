@@ -1,6 +1,6 @@
 'use strict';
 
-const templates = {  // wstawiamy template
+const templates = {
   articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
   tagLink: Handlebars.compile(document.querySelector('#template-tag-link').innerHTML),
   authorLink: Handlebars.compile(document.querySelector('#template-author-link').innerHTML),
@@ -8,7 +8,7 @@ const templates = {  // wstawiamy template
   authorCloudLink : Handlebars.compile(document.querySelector('#template-author-cloud-link').innerHTML),
 };
 
-const optArticleSelector = '.post',  // wybieranie po selektorach
+const optArticleSelector = '.post',
   optTitleSelector = '.post-title',
   optTitleListSelector = '.titles',
   optArticleTagsSelector = '.post-tags .list',
@@ -96,12 +96,13 @@ function generateTitleLinks(customSelector = ''){
     link.addEventListener('click', titleClickHandler);
   }
 }
+
 generateTitleLinks();
 
 function calculateTagsParams(tags){
   const params = {max: '0', min: '99999'};
   for(let tag in tags){
-    //console.log(tag + ' is used ' + tags[tag] + ' times');   // tags[tag] ?
+    //console.log(tag + ' is used ' + tags[tag] + ' times');
     if(tags[tag] > params.max){
       params.max = tags[tag];
     }
@@ -109,7 +110,7 @@ function calculateTagsParams(tags){
       params.min = tags[tag];
     }
   }
-  //console.log(params);
+  /* console.log(params); */
   return params
 }
 function calculateTagClass(count, params){
@@ -280,13 +281,12 @@ function authorClickHandler(event){
   const clickedElement = this;
   const href = clickedElement.getAttribute('href');
   //console.log(href);
-  const author = href.replace('#author-', '');  
+  const author = href.replace('#author-', '');
   /* make a new constant authoer and extract tag from the "href" constant */
   const authorLinks = document.querySelectorAll('a.active[href^="#author-"]');
   //console.log(authorLinks);
   for (let authorLink of authorLinks) {
     authorLink.classList.remove('active');
-  
   const hrefAuthorLinks = document.querySelectorAll('a[href="' + href + '"]');
   //console.log(hrefAuthorLinks);
   for (let hrefAuthorLink of hrefAuthorLinks){
@@ -297,7 +297,7 @@ function authorClickHandler(event){
 }
 
 function addClickListenersToAuthors (){
-  const authorLinks = document.querySelectorAll('.post .post-author a'); 
+  const authorLinks = document.querySelectorAll('.post .post-author a');
   /* find all links to tags */
   //console.log(authorLinks);
   /* for each link add tagClickHandler as event listener for that link */
@@ -310,7 +310,7 @@ addClickListenersToAuthors();
 
 function generateTagsCloud(){
 
-  /* create a new variable allTags with an empty array [] > zmieniamy na nowy object {}*/
+  /* create a new variable allTags with an empty array [] > zmieniamy na nowy object {} */
   let allTags = {};
   /* find all articles */
   const articles = document.querySelectorAll(optArticleSelector);
@@ -345,7 +345,7 @@ function generateTagsCloud(){
       } else {
         allTags[tag]++;
       }
-      //console.log(allTags);
+      console.log(allTags);
     /* END LOOP: for each tag */
     }
     /* insert HTML of all the links into the tags wrapper */
@@ -357,12 +357,13 @@ function generateTagsCloud(){
   //console.log(tagList);
   /* [NEW] add html from allTags to tagList */
   const tagsParams = calculateTagsParams(allTags);
+  console.log('tagsParams:', tagsParams)
   //console.log('tagParams', tagsParams);
   // new create variable for all links HTML code
   // let allTagsHTML = '';
   const allTagsData = {tags: []};
   /* start loop for each tag in allTags */
-  for (let tag in allTags) {
+  for(let tag in allTags) {
     // GENERATE CODE of a link and add it to alltags html
     //const tagLinkHTML = '<li><a class="tag-size-' + calculateTagClass(allTags[tag], tagsParams) + '" href="#tag-' + tag +'">'+ tag + ' (' + allTags[tag] + ')</a></li>';
     //const tagLinkHTML = '<li><a class="tag-size-' + calculateTagClass(allTags[tag], tagsParams) + '" href="#tag-' + tag +'">'+ tag + '</a></li>';
@@ -385,4 +386,4 @@ function generateTagsCloud(){
   }
   //console.log(allTags);
 }
-generateTagsCloud();
+generateTagsCloud()
